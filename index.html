@@ -29,7 +29,7 @@ body{
 }
 
 header{
-  padding:22px 18px;
+  padding:18px;
   text-align:center;
   border-bottom:1px solid #18304d;
 }
@@ -44,6 +44,22 @@ header p{
   margin-top:6px;
 }
 
+.status{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.badge{
+  font-size:12px;
+  padding:7px 10px;
+  border-radius:16px;
+  background:#0b1d31;
+  border:1px solid #24506e;
+}
+
 #chat{
   flex:1;
   padding:20px;
@@ -54,8 +70,9 @@ header p{
   padding:13px 16px;
   margin:10px 0;
   border-radius:16px;
-  max-width:85%;
+  max-width:88%;
   line-height:1.5;
+  white-space:pre-wrap;
 }
 
 .nova{
@@ -67,6 +84,18 @@ header p{
 .user{
   background:#006d9c;
   margin-left:auto;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:0 15px 12px;
+}
+
+.features button{
+  width:100%;
+  font-size:13px;
 }
 
 .inputArea{
@@ -96,8 +125,44 @@ button{
   font-weight:bold;
 }
 
+button.secondary{
+  background:#10243a;
+  border:1px solid #24506e;
+}
+
 button:active{
   transform:scale(.97);
+}
+
+#cameraBox{
+  display:none;
+  margin:0 15px 12px;
+  padding:12px;
+  background:#0b1725;
+  border:1px solid #24506e;
+  border-radius:16px;
+}
+
+video{
+  width:100%;
+  border-radius:12px;
+  background:#000;
+}
+
+.cameraButtons{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+
+.cameraButtons button{
+  flex:1;
+}
+
+.small{
+  font-size:12px;
+  color:#9bb5cc;
+  margin-top:8px;
 }
 </style>
 </head>
@@ -109,20 +174,79 @@ button:active{
 <header>
   <h1>🤖 NOVA AI</h1>
   <p>Your personal AI assistant</p>
+
+  <div class="status">
+    <span class="badge" id="battery">🔋 Battery: checking...</span>
+    <span class="badge" id="voice">🔊 Voice: ready</span>
+    <span class="badge" id="face">🙂 Face: off</span>
+  </div>
 </header>
 
 <div id="chat">
 
   <div class="message nova">
-    Hello! 👋 Main NOVA hoon.<br>
+    Hello! 👋 Main NOVA hoon.
     Tum mujhse kuch bhi pooch sakti ho.
+    Main voice me bhi answer kar sakti hoon. 🤖✨
+  </div>
+
+</div>
+
+<div class="features">
+
+  <button onclick="checkBattery()">
+    🔋 Battery
+  </button>
+
+  <button onclick="startCamera()">
+    📷 Face Detect
+  </button>
+
+  <button class="secondary" onclick="aboutYou()">
+    💗 Main kaisi hoon?
+  </button>
+
+  <button class="secondary" onclick="speak('Hello! Main NOVA hoon. Tumhari personal AI assistant.')">
+    🔊 Test Voice
+  </button>
+
+</div>
+
+<div id="cameraBox">
+
+  <video id="video" autoplay playsinline></video>
+
+  <div class="cameraButtons">
+
+    <button onclick="detectFace()">
+      🔎 Detect Face
+    </button>
+
+    <button class="secondary" onclick="stopCamera()">
+      ✖ Close
+    </button>
+
+  </div>
+
+  <div class="small" id="faceResult">
+    Camera permission allow karo.
   </div>
 
 </div>
 
 <div class="inputArea">
-  <input id="input" type="text" placeholder="Message NOVA..." onkeydown="enterKey(event)">
-  <button onclick="sendMessage()">Send</button>
+
+  <input
+    id="input"
+    type="text"
+    placeholder="Message NOVA..."
+    onkeydown="enterKey(event)"
+  >
+
+  <button onclick="sendMessage()">
+    Send
+  </button>
+
 </div>
 
 </div>
@@ -132,22 +256,97 @@ button:active{
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
+let stream = null;
+
+let userName =
+  localStorage.getItem("novaUserName") || "";
+
+
+/* -----------------------------
+   ADD MESSAGE
+----------------------------- */
+
 function addMessage(text,type){
 
-  const message = document.createElement("div");
+  const message =
+    document.createElement("div");
 
-  message.className = "message " + type;
+  message.className =
+    "message " + type;
 
   message.innerText = text;
 
   chat.appendChild(message);
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
 }
+
+
+/* -----------------------------
+   NOVA VOICE
+----------------------------- */
+
+function speak(text){
+
+  if(!("speechSynthesis" in window)){
+
+    addMessage(
+      "Is browser me voice support available nahi hai.",
+      "nova"
+    );
+
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utter =
+    new SpeechSynthesisUtterance(text);
+
+  utter.lang = "hi-IN";
+
+  utter.rate = 0.95;
+
+  utter.pitch = 1.05;
+
+  document.getElementById("voice").innerText =
+    "🔊 Voice: speaking...";
+
+  utter.onend = function(){
+
+    document.getElementById("voice").innerText =
+      "🔊 Voice: ready";
+
+  };
+
+  speechSynthesis.speak(utter);
+}
+
+
+/* -----------------------------
+   NOVA SAY
+----------------------------- */
+
+function novaSay(text){
+
+  if(!text) return;
+
+  addMessage(text,"nova");
+
+  speak(text);
+
+}
+
+
+/* -----------------------------
+   SEND MESSAGE
+----------------------------- */
 
 function sendMessage(){
 
-  const text = input.value.trim();
+  const text =
+    input.value.trim();
 
   if(!text) return;
 
@@ -157,24 +356,102 @@ function sendMessage(){
 
   setTimeout(function(){
 
-    const reply = novaReply(text);
+    const reply =
+      novaReply(text);
 
-    addMessage(reply,"nova");
+    if(reply){
 
-  },500);
+      novaSay(reply);
+
+    }
+
+  },350);
+
 }
+
+
+/* -----------------------------
+   ENTER KEY
+----------------------------- */
 
 function enterKey(event){
 
   if(event.key === "Enter"){
+
     sendMessage();
+
   }
 
 }
 
+
+/* -----------------------------
+   NOVA REPLY
+----------------------------- */
+
 function novaReply(text){
 
-  const t = text.toLowerCase();
+  const t =
+    text.toLowerCase();
+
+
+  /* NAME */
+
+  if(
+    t.includes("mera naam") ||
+    t.includes("my name") ||
+    t.includes("naam kya")
+  ){
+
+    if(userName){
+
+      return (
+        "Tumhara naam " +
+        userName +
+        " hai. 😊"
+      );
+
+    }
+
+    return (
+      "Mujhe abhi tumhara naam nahi pata. " +
+      "Tum bolo: Mera naam Nishu hai. " +
+      "Phir NOVA ise yaad rakh legi."
+    );
+
+  }
+
+
+  /* SAVE NAME */
+
+  const nameMatch =
+    text.match(
+      /(?:mera naam|my name is)\s+(.+)/i
+    );
+
+  if(nameMatch){
+
+    userName =
+      nameMatch[1]
+      .trim()
+      .replace(/[.!?]+$/,"");
+
+    localStorage.setItem(
+      "novaUserName",
+      userName
+    );
+
+    return (
+      "Nice to meet you, " +
+      userName +
+      "! 💙 " +
+      "Ab NOVA tumhe naam se bula sakti hai."
+    );
+
+  }
+
+
+  /* HELLO */
 
   if(
     t.includes("hello") ||
@@ -182,60 +459,470 @@ function novaReply(text){
     t.includes("hey") ||
     t.includes("helo")
   ){
-    return "Hello! 👋 Main NOVA hoon. Tum kaisi ho?";
+
+    return (
+      "Hello " +
+      (userName || "dost") +
+      "! 👋 " +
+      "Main NOVA hoon. Tum kaisi ho?"
+    );
+
   }
 
-  if(
-    t.includes("tumhara naam") ||
-    t.includes("your name") ||
-    t.includes("naam kya")
-  ){
-    return "Mera naam NOVA AI hai. 🤖✨";
-  }
+
+  /* HOW ARE YOU */
 
   if(
     t.includes("kaise ho") ||
     t.includes("how are you")
   ){
-    return "Main bilkul theek hoon! 😄 Tum batao, tum kaisi ho?";
+
+    return (
+      "Main bilkul theek hoon! 😄 " +
+      "Tum batao, tum kaisi ho?"
+    );
+
   }
+
+
+  /* BATTERY */
+
+  if(
+    t.includes("battery") ||
+    t.includes("charge")
+  ){
+
+    checkBattery();
+
+    return null;
+
+  }
+
+
+  /* ABOUT USER */
+
+  if(
+    t.includes("kaisi hu") ||
+    t.includes("main kaisi") ||
+    t.includes("about me")
+  ){
+
+    aboutYou();
+
+    return null;
+
+  }
+
+
+  /* FACE */
+
+  if(
+    t.includes("face") ||
+    t.includes("chehra")
+  ){
+
+    startCamera();
+
+    return (
+      "Camera feature open kar rahi hoon. 📷"
+    );
+
+  }
+
+
+  /* NOVA NAME */
+
+  if(
+    t.includes("tumhara naam") ||
+    t.includes("your name")
+  ){
+
+    return (
+      "Mera naam NOVA AI hai. 🤖✨"
+    );
+
+  }
+
+
+  /* WHAT ARE YOU DOING */
 
   if(
     t.includes("kya kar") ||
     t.includes("what are you doing")
   ){
-    return "Abhi main tumse baat kar rahi hoon. 🤖💙";
+
+    return (
+      "Abhi main tumse baat kar rahi hoon. 🤖💙"
+    );
+
   }
+
+
+  /* THANKS */
 
   if(
     t.includes("thank") ||
     t.includes("thanks")
   ){
-    return "You're welcome! 😊 Jab bhi zarurat ho, NOVA yahin hai.";
+
+    return (
+      "You're welcome! 😊 " +
+      "Jab bhi zarurat ho, NOVA yahin hai."
+    );
+
   }
+
+
+  /* BYE */
 
   if(
     t.includes("bye") ||
     t.includes("goodbye")
   ){
-    return "Bye! 👋 Phir milte hain. NOVA online rahegi. 🤖";
+
+    return (
+      "Bye! 👋 Phir milte hain. " +
+      "NOVA online rahegi. 🤖"
+    );
+
   }
+
+
+  /* MOTIVATION */
 
   if(
     t.includes("motivat") ||
     t.includes("motivation")
   ){
-    return "✨ Yaad rakho: slow progress bhi progress hoti hai. Give up mat karo!";
+
+    return (
+      "✨ Yaad rakho: slow progress bhi progress hoti hai. " +
+      "Give up mat karo!"
+    );
+
   }
+
+
+  /* HELP */
 
   if(
     t.includes("help") ||
     t.includes("madad")
   ){
-    return "Bilkul! 😊 Apna question mujhe batao, main help karne ki koshish karungi.";
+
+    return (
+      "Bilkul! 😊 " +
+      "Apna question mujhe batao, " +
+      "main help karne ki koshish karungi."
+    );
+
   }
 
-  return "Hmm 🤔 Ye interesting hai! Thoda aur detail mein batao, main NOVA tumhari help karti hoon. 🤖✨";
+
+  return (
+    "Hmm 🤔 Ye interesting hai! " +
+    "Thoda aur detail mein batao, " +
+    "main NOVA tumhari help karti hoon. 🤖✨"
+  );
+
+}
+
+
+/* -----------------------------
+   BATTERY
+----------------------------- */
+
+async function checkBattery(){
+
+  if(!navigator.getBattery){
+
+    novaSay(
+      "Is browser me battery percentage access available nahi hai."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    const battery =
+      await navigator.getBattery();
+
+    const percentage =
+      Math.round(
+        battery.level * 100
+      );
+
+    const charging =
+      battery.charging
+      ? " aur abhi charging ho rahi hai"
+      : "";
+
+    document.getElementById("battery")
+      .innerText =
+      "🔋 Battery: " +
+      percentage +
+      "%";
+
+    novaSay(
+      "Tumhari battery " +
+      percentage +
+      " percent hai" +
+      charging +
+      "."
+    );
+
+  }
+
+  catch(error){
+
+    novaSay(
+      "Battery percentage access nahi ho paaya."
+    );
+
+  }
+
+}
+
+
+/* -----------------------------
+   CAMERA
+----------------------------- */
+
+async function startCamera(){
+
+  const cameraBox =
+    document.getElementById(
+      "cameraBox"
+    );
+
+  cameraBox.style.display =
+    "block";
+
+  try{
+
+    stream =
+      await navigator.mediaDevices
+      .getUserMedia({
+
+        video:{
+          facingMode:"user"
+        },
+
+        audio:false
+
+      });
+
+    document.getElementById("video")
+      .srcObject = stream;
+
+    document.getElementById("face")
+      .innerText =
+      "🙂 Face: camera on";
+
+    document.getElementById("faceResult")
+      .innerText =
+      "Ab Detect Face dabao.";
+
+  }
+
+  catch(error){
+
+    document.getElementById("faceResult")
+      .innerText =
+      "Camera permission allow karo.";
+
+    novaSay(
+      "Camera permission allow karo, " +
+      "tab NOVA face detection try kar payegi."
+    );
+
+  }
+
+}
+
+
+/* -----------------------------
+   FACE DETECTION
+----------------------------- */
+
+async function detectFace(){
+
+  const video =
+    document.getElementById("video");
+
+  if(!video.videoWidth){
+
+    novaSay(
+      "Pehle camera start hone do."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Important:
+    Har Android browser me FaceDetector
+    available nahi hota.
+  */
+
+  if("FaceDetector" in window){
+
+    try{
+
+      const detector =
+        new FaceDetector({
+
+          fastMode:true,
+
+          maxDetectedFaces:5
+
+        });
+
+      const faces =
+        await detector.detect(video);
+
+
+      if(faces.length){
+
+        document.getElementById("face")
+          .innerText =
+          "🙂 Face: detected";
+
+        document.getElementById("faceResult")
+          .innerText =
+          faces.length +
+          " face detected.";
+
+        novaSay(
+          "Face detect ho gaya! 🙂 " +
+          "Main sirf face ki presence detect kar rahi hoon."
+        );
+
+      }
+
+      else{
+
+        document.getElementById("face")
+          .innerText =
+          "🙂 Face: not found";
+
+        novaSay(
+          "Mujhe abhi face clearly nahi mila. " +
+          "Camera ke saamne seedha dekho."
+        );
+
+      }
+
+    }
+
+    catch(error){
+
+      fallbackFace();
+
+    }
+
+  }
+
+  else{
+
+    fallbackFace();
+
+  }
+
+}
+
+
+/* -----------------------------
+   FACE FALLBACK
+----------------------------- */
+
+function fallbackFace(){
+
+  document.getElementById("face")
+    .innerText =
+    "🙂 Face: unsupported";
+
+  novaSay(
+    "Is Android browser me built-in face detector available nahi hai. " +
+    "Accurate face detection ke liye alag face detection library add karni hogi."
+  );
+
+}
+
+
+/* -----------------------------
+   CLOSE CAMERA
+----------------------------- */
+
+function stopCamera(){
+
+  if(stream){
+
+    stream
+      .getTracks()
+      .forEach(
+        track => track.stop()
+      );
+
+  }
+
+  stream = null;
+
+  document.getElementById("video")
+    .srcObject = null;
+
+  document.getElementById("cameraBox")
+    .style.display =
+    "none";
+
+  document.getElementById("face")
+    .innerText =
+    "🙂 Face: off";
+
+}
+
+
+/* -----------------------------
+   ABOUT YOU
+----------------------------- */
+
+function aboutYou(){
+
+  const name =
+    userName
+    ? userName + ","
+    : "";
+
+  novaSay(
+
+    "Abhi tak ki baaton se " +
+    name +
+    " mujhe lagta hai ki tum creative ho, " +
+    "apni NOVA ko customize karna pasand karti ho " +
+    "aur naye features try karne mein interested ho. 💗 " +
+    "Main tumhare face se sensitive personality " +
+    "ya private traits guess nahi karungi. " +
+    "Tum jo khud share karogi, " +
+    "uske basis par main friendly observations de sakti hoon."
+
+  );
+
+}
+
+
+/* -----------------------------
+   START BATTERY CHECK
+----------------------------- */
+
+if(navigator.getBattery){
+
+  checkBattery().catch(
+    function(){}
+  );
 
 }
 
