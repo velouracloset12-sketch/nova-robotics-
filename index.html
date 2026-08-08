@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA Robotics</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050816;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 30px 20px;
+    }
+
+    h1 {
+      color: #00bfff;
+      font-size: 42px;
+    }
+
+    .robot {
+      font-size: 80px;
+      margin: 20px;
+    }
+
+    .status {
+      color: #00ff88;
+      margin: 15px;
+    }
+
+    button {
+      background: #008cff;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-size: 18px;
+      margin: 8px;
+    }
+
+    #output {
+      margin-top: 25px;
+      padding: 20px;
+      background: #111a2e;
+      border-radius: 15px;
+      min-height: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🤖 NOVA</h1>
+
+  <div class="robot">🦾</div>
+
+  <div class="status">● NOVA ONLINE</div>
+
+  <p>AI Powered Personal Robotics Assistant</p>
+
+  <button onclick="speakNOVA()">🔊 Talk to NOVA</button>
+
+  <button onclick="battery()">🔋 Battery</button>
+
+  <div id="output">
+    Hello! I am NOVA. Your personal AI robot.
+  </div>
+
+</div>
+
+<script>
+
+function speakNOVA() {
+
+  const message =
+  "Hello! I am NOVA. I am your personal robotics assistant.";
+
+  document.getElementById("output").innerText = message;
+
+  const speech = new SpeechSynthesisUtterance(message);
+
+  speech.lang = "en-US";
+
+  window.speechSynthesis.speak(speech);
+}
+
+
+async function battery() {
+
+  if ("getBattery" in navigator) {
+
+    const b = await navigator.getBattery();
+
+    document.getElementById("output").innerText =
+      "Battery: " + Math.round(b.level * 100) + "%";
+
+  } else {
+
+    document.getElementById("output").innerText =
+      "Battery information is not supported by this browser.";
+
+  }
+
+}
+
+</script>
+
+</body>
+  </html>
