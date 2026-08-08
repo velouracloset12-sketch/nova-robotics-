@@ -12,23 +12,11 @@
   padding:0;
 }
 
-html,body{
-  width:100%;
-  min-height:100%;
-}
-
 body{
   font-family:Arial,sans-serif;
-  background:#030712;
+  background:#020611;
   color:white;
-}
-
-button,input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
+  min-height:100vh;
 }
 
 .app{
@@ -38,73 +26,58 @@ button{
   margin:auto;
   display:flex;
   flex-direction:column;
-  background:
-    radial-gradient(circle at top,#0b2038 0%,#030914 45%,#02050b 100%);
+  background:linear-gradient(180deg,#061426,#02050d);
 }
 
-/* HEADER */
-
 header{
-  padding:18px 14px 15px;
   text-align:center;
+  padding:22px 15px 18px;
   border-bottom:1px solid #18304d;
-  flex-shrink:0;
 }
 
 .logo{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.logoIcon{
   font-size:42px;
 }
 
 header h1{
   color:#00bfff;
-  font-size:35px;
-  letter-spacing:1px;
+  font-size:34px;
+  margin-top:4px;
 }
 
 header p{
   color:#9bb5cc;
   margin-top:7px;
-  font-size:14px;
 }
 
 .status{
   display:flex;
   justify-content:center;
-  gap:6px;
+  gap:7px;
   flex-wrap:wrap;
-  margin-top:12px;
+  margin-top:13px;
 }
 
 .badge{
   font-size:11px;
-  padding:6px 9px;
-  border-radius:20px;
-  background:#0a1a2c;
+  padding:7px 10px;
+  border-radius:18px;
+  background:#0b1d31;
   border:1px solid #24506e;
-  color:#b9d5e8;
 }
 
-/* CHAT */
-
 #chat{
-  flex:1 1 auto;
-  min-height:260px;
-  padding:16px;
+  flex:1;
+  padding:18px;
   overflow-y:auto;
+  min-height:250px;
 }
 
 .message{
-  padding:13px 15px;
-  margin:9px 0;
-  border-radius:17px;
-  max-width:90%;
+  padding:14px 16px;
+  margin:10px 0;
+  border-radius:18px;
+  max-width:88%;
   line-height:1.55;
   white-space:pre-wrap;
   word-wrap:break-word;
@@ -121,132 +94,84 @@ header p{
   margin-left:auto;
 }
 
-/* QUICK FEATURES */
-
 .features{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px;
-  padding:10px 14px;
-  flex-shrink:0;
-  background:#050b16;
-  border-top:1px solid #18304d;
+  gap:9px;
+  padding:8px 15px 14px;
 }
 
 .features button{
   width:100%;
-  min-height:45px;
-  padding:10px 7px;
-  border-radius:12px;
-  border:1px solid #24506e;
-  background:#0d2238;
+  min-height:58px;
+  font-size:14px;
+}
+
+button{
+  padding:12px 15px;
+  border:none;
+  border-radius:14px;
+  background:#00aeea;
   color:white;
   font-weight:bold;
+  cursor:pointer;
 }
 
-.features button:hover{
-  background:#123452;
+button.secondary{
+  background:#10243a;
+  border:1px solid #24506e;
 }
 
-.features button:active,
-.sendBtn:active,
-.micBtn:active{
-  transform:scale(.96);
+button:active{
+  transform:scale(.97);
 }
-
-/* INPUT */
 
 .inputArea{
   display:flex;
-  gap:7px;
-  padding:12px 14px 15px;
-  background:#050b16;
+  gap:8px;
+  padding:14px;
   border-top:1px solid #18304d;
-  flex-shrink:0;
+  background:#050b16;
+  position:sticky;
+  bottom:0;
 }
 
-#input{
+input{
   min-width:0;
   flex:1;
-  padding:14px;
-  border-radius:13px;
+  padding:15px;
+  border-radius:14px;
   border:1px solid #24506e;
   background:#0b1725;
   color:white;
   outline:none;
-}
-
-#input::placeholder{
-  color:#71899d;
-}
-
-.micBtn{
-  width:48px;
-  padding:0;
-  border:none;
-  border-radius:13px;
-  background:#123552;
-  color:white;
-  font-size:20px;
+  font-size:15px;
 }
 
 .sendBtn{
-  padding:12px 17px;
-  border:none;
-  border-radius:13px;
-  background:#00aeea;
-  color:white;
-  font-weight:bold;
+  min-width:78px;
 }
 
-/* PANELS */
-
-.panel{
-  display:none;
-  margin:0 14px 10px;
-  padding:13px;
-  border-radius:16px;
-  background:#091728;
+.micBtn{
+  min-width:58px;
+  background:#10243a;
   border:1px solid #24506e;
+  font-size:20px;
 }
 
-.panelTitle{
-  font-size:15px;
-  font-weight:bold;
-  margin-bottom:10px;
-  color:#00bfff;
+#cameraBox{
+  display:none;
+  margin:0 15px 12px;
+  padding:12px;
+  background:#0b1725;
+  border:1px solid #24506e;
+  border-radius:16px;
 }
 
-.panelButtons{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
-
-.panelButtons button{
-  flex:1;
-  min-width:110px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#123452;
-  color:white;
-}
-
-.small{
-  font-size:12px;
-  color:#9bb5cc;
-  margin-top:8px;
-  line-height:1.5;
-}
-
-/* CAMERA */
-
-#video{
+video{
   width:100%;
-  border-radius:13px;
+  border-radius:12px;
   background:#000;
-  display:block;
 }
 
 .cameraButtons{
@@ -257,91 +182,108 @@ header p{
 
 .cameraButtons button{
   flex:1;
-  padding:11px;
-  border:none;
-  border-radius:10px;
-  background:#00aeea;
-  color:white;
 }
 
-.cameraButtons .secondary{
-  background:#10243a;
-  border:1px solid #24506e;
+.small{
+  font-size:12px;
+  color:#9bb5cc;
+  margin-top:8px;
 }
 
-/* IMAGE PREVIEW */
-
-#imagePreview{
-  max-width:100%;
-  max-height:260px;
+.hidden{
   display:none;
-  margin-top:10px;
-  border-radius:12px;
 }
 
-/* SETTINGS */
+.preview{
+  max-width:100%;
+  max-height:250px;
+  border-radius:14px;
+  margin-top:8px;
+}
+
+.fileBox{
+  margin:0 15px 12px;
+  padding:12px;
+  background:#0b1725;
+  border:1px solid #24506e;
+  border-radius:16px;
+  display:none;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modalContent{
+  width:100%;
+  max-width:500px;
+  background:#0b1725;
+  border:1px solid #24506e;
+  border-radius:20px;
+  padding:20px;
+}
+
+.modalContent h2{
+  color:#00bfff;
+  margin-bottom:15px;
+}
+
+.modalContent p{
+  color:#b5c9d9;
+  line-height:1.6;
+  margin-bottom:15px;
+}
+
+.modalButtons{
+  display:flex;
+  gap:8px;
+}
+
+.modalButtons button{
+  flex:1;
+}
 
 .settingRow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin:8px 0;
-  padding:9px;
-  background:#0b1b2c;
-  border-radius:10px;
+  margin:12px 0;
 }
 
-.settingRow button{
-  padding:8px 12px;
-  border:none;
-  border-radius:8px;
-  background:#00aeea;
-  color:white;
+.settingRow label{
+  display:block;
+  color:#b5c9d9;
+  margin-bottom:7px;
 }
 
-#nameInput{
+.settingRow input{
   width:100%;
-  padding:11px;
-  border-radius:10px;
-  border:1px solid #24506e;
-  background:#071322;
-  color:white;
-  outline:none;
-  margin-bottom:8px;
 }
 
-/* MOBILE */
+#typing{
+  display:none;
+  color:#9bb5cc;
+  font-size:13px;
+  padding:5px 18px 10px;
+}
 
-@media(max-width:430px){
-
-  header h1{
-    font-size:31px;
-  }
-
-  .logoIcon{
-    font-size:36px;
-  }
-
+@media(max-width:400px){
   .features{
-    grid-template-columns:1fr 1fr;
+    gap:7px;
+    padding-left:10px;
+    padding-right:10px;
   }
 
   .features button{
     font-size:12px;
   }
 
-  .inputArea{
-    padding-left:10px;
-    padding-right:10px;
-  }
-
-  .sendBtn{
-    padding:11px 13px;
-  }
-
-  .micBtn{
-    width:44px;
+  header h1{
+    font-size:29px;
   }
 }
 </style>
@@ -351,16 +293,13 @@ header p{
 
 <div class="app">
 
-<!-- HEADER -->
-
 <header>
 
-  <div class="logo">
-    <span class="logoIcon">🤖</span>
-    <h1>NOVA AI</h1>
-  </div>
+  <div class="logo">🤖</div>
 
-  <p>Your personal AI voice assistant</p>
+  <h1>NOVA AI</h1>
+
+  <p>Your personal AI assistant 💙</p>
 
   <div class="status">
 
@@ -372,8 +311,8 @@ header p{
       🔊 Voice: ready
     </span>
 
-    <span class="badge" id="memoryStatus">
-      🧠 Memory: on
+    <span class="badge" id="locationStatus">
+      📍 Location: off
     </span>
 
   </div>
@@ -381,22 +320,27 @@ header p{
 </header>
 
 
-<!-- CHAT -->
-
 <div id="chat">
 
   <div class="message nova">
-    Hello! 👋 Main NOVA hoon.
 
-    Main tumhari personal AI assistant hoon. 🤖💙
+Hello! 👋 Main NOVA hoon. 🤖💙
 
-    Tum mujhse type karke ya 🎤 microphone se baat kar sakti ho.
+Main tumhari personal AI assistant hoon.
 
-    Main tumhara naam yaad rakh sakti hoon aur voice me answer bhi de sakti hoon.
+Tum mujhe type karke ya 🎤 microphone se baat kar sakti ho.
 
-    Batao, main tumhari kya help karun? ✨
+Main tumhara naam yaad rakh sakti hoon aur voice me answer bhi de sakti hoon. ✨
+
+Batao, main tumhari kya help karun? 💗
+
   </div>
 
+</div>
+
+
+<div id="typing">
+  NOVA is thinking... 🤖
 </div>
 
 
@@ -404,76 +348,70 @@ header p{
 
 <div class="features">
 
-  <button onclick="checkBattery()">
+  <button id="batteryBtn">
     🔋 Battery
   </button>
 
-  <button onclick="startCamera()">
+  <button id="cameraBtn">
     📷 Camera
   </button>
 
-  <button onclick="startVoice()">
+  <button id="talkBtn">
     🎤 Talk to NOVA
   </button>
 
-  <button onclick="speakLast()">
+  <button id="speakBtn">
     🔊 Speak
   </button>
 
-  <button onclick="openImagePanel()">
+  <button id="imageBtn">
     🖼️ Image
   </button>
 
-  <button onclick="openFilePanel()">
+  <button id="fileBtn">
     📁 File
   </button>
 
-  <button onclick="getLocation()">
+  <button id="locationBtn">
     📍 Location
   </button>
 
-  <button onclick="showDateTime()">
+  <button id="timeBtn">
     🕐 Time / Date
   </button>
 
-  <button onclick="webSearch()">
+  <button id="searchBtn">
     🔎 Search
   </button>
 
-  <button onclick="aboutYou()">
+  <button id="aboutBtn">
     💗 About Me
   </button>
 
-  <button onclick="openSettings()">
+  <button id="settingsBtn">
     ⚙️ Settings
   </button>
 
-  <button onclick="clearChat()">
+  <button id="clearBtn">
     🧹 Clear Chat
   </button>
 
 </div>
 
 
-<!-- CAMERA PANEL -->
+<!-- CAMERA -->
 
-<div class="panel" id="cameraPanel">
-
-  <div class="panelTitle">
-    📷 NOVA Camera
-  </div>
+<div id="cameraBox">
 
   <video id="video" autoplay playsinline></video>
 
   <div class="cameraButtons">
 
-    <button onclick="detectFace()">
-      🙂 Detect Face
+    <button id="detectFaceBtn">
+      🔎 Detect Face
     </button>
 
-    <button
-      class="secondary"
-      onclick="stopCamera()">
+    <button class="secondary" id="closeCameraBtn">
       ✖ Close
     </button>
 
@@ -486,101 +424,28 @@ header p{
 </div>
 
 
-<!-- IMAGE PANEL -->
+<!-- FILE -->
 
-<div class="panel" id="imagePanel">
+<div class="fileBox" id="fileBox">
 
-  <div class="panelTitle">
-    🖼️ Image Upload
-  </div>
-
-  <input
-    type="file"
-    id="imageInput"
-    accept="image/*"
-    onchange="previewImage(event)"
-  >
-
-  <img id="imagePreview">
-
-  <div class="small">
-    NOVA image ko website par preview karegi.
-    Advanced image understanding ke liye AI vision API connect karni hogi.
+  <div id="fileResult">
+    File select karo.
   </div>
 
 </div>
 
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  class="hidden"
+>
 
-<!-- FILE PANEL -->
-
-<div class="panel" id="filePanel">
-
-  <div class="panelTitle">
-    📁 File Upload
-  </div>
-
-  <input
-    type="file"
-    id="fileInput"
-    onchange="fileSelected(event)"
-  >
-
-  <div
-    class="small"
-    id="fileResult">
-    Koi file select nahi ki gayi.
-  </div>
-
-</div>
-
-
-<!-- SETTINGS -->
-
-<div class="panel" id="settingsPanel">
-
-  <div class="panelTitle">
-    ⚙️ NOVA Settings
-  </div>
-
-  <input
-    id="nameInput"
-    type="text"
-    placeholder="Apna naam likho..."
-  >
-
-  <div class="settingRow">
-
-    <span>🧠 Remember my name</span>
-
-    <button onclick="saveName()">
-      Save
-    </button>
-
-  </div>
-
-  <div class="settingRow">
-
-    <span>🔊 Auto Voice</span>
-
-    <button
-      id="voiceToggle"
-      onclick="toggleAutoVoice()">
-      ON
-    </button>
-
-  </div>
-
-  <div class="settingRow">
-
-    <span>🧹 Clear Memory</span>
-
-    <button onclick="clearMemory()">
-      Clear
-    </button>
-
-  </div>
-
-</div>
+<input
+  type="file"
+  id="fileInput"
+  class="hidden"
+>
 
 
 <!-- INPUT -->
@@ -588,7 +453,7 @@ header p{
 <div class="inputArea">
 
   <input
-    id="input"
+    id="messageInput"
     type="text"
     placeholder="Message NOVA..."
     autocomplete="off"
@@ -596,13 +461,17 @@ header p{
 
   <button
     class="micBtn"
-    onclick="startVoice()">
+    id="micBtn"
+    type="button"
+  >
     🎤
   </button>
 
   <button
     class="sendBtn"
-    onclick="sendMessage()">
+    id="sendBtn"
+    type="button"
+  >
     Send
   </button>
 
@@ -611,36 +480,72 @@ header p{
 </div>
 
 
+<!-- SETTINGS MODAL -->
+
+<div class="modal" id="settingsModal">
+
+  <div class="modalContent">
+
+    <h2>⚙️ NOVA Settings</h2>
+
+    <div class="settingRow">
+
+      <label>Your Name</label>
+
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="Apna naam likho"
+      >
+
+    </div>
+
+    <div class="settingRow">
+
+      <label>Voice</label>
+
+      <p>
+        NOVA browser ki available Hindi voice ka use karegi.
+      </p>
+
+    </div>
+
+    <div class="modalButtons">
+
+      <button id="saveSettingsBtn">
+        💾 Save
+      </button>
+
+      <button
+        class="secondary"
+        id="closeSettingsBtn"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* =====================================================
-   NOVA CORE
+   NOVA AI
 ===================================================== */
 
 const chat =
   document.getElementById("chat");
 
-const input =
-  document.getElementById("input");
+const messageInput =
+  document.getElementById("messageInput");
+
+const typing =
+  document.getElementById("typing");
 
 let stream = null;
-
-let lastNovaMessage =
-  "Hello! Main NOVA hoon.";
-
-let autoVoice =
-  localStorage.getItem("novaAutoVoice") !== "off";
-
-
-/* =====================================================
-   NAME MEMORY
-===================================================== */
-
-/*
-   Default name Nishu.
-   Agar tum Settings me naam change karogi,
-   naya naam save ho jayega.
-*/
 
 let userName =
   localStorage.getItem("novaUserName") || "Nishu";
@@ -651,8 +556,6 @@ let userName =
 ===================================================== */
 
 function addMessage(text,type){
-
-  if(!text) return;
 
   const message =
     document.createElement("div");
@@ -667,22 +570,19 @@ function addMessage(text,type){
 
   chat.scrollTop =
     chat.scrollHeight;
-
 }
 
 
 /* =====================================================
-   NOVA VOICE
+   VOICE SPEAK
 ===================================================== */
 
 function speak(text){
 
-  if(!text) return;
-
   if(!("speechSynthesis" in window)){
 
     addMessage(
-      "Is browser me voice output available nahi hai.",
+      "Tumhare browser me voice support available nahi hai.",
       "nova"
     );
 
@@ -692,39 +592,36 @@ function speak(text){
 
   speechSynthesis.cancel();
 
-  const utter =
+  const utterance =
     new SpeechSynthesisUtterance(text);
 
-  utter.lang = "hi-IN";
+  utterance.lang =
+    "hi-IN";
 
-  utter.rate = 0.95;
+  utterance.rate =
+    0.92;
 
-  utter.pitch = 1.05;
+  utterance.pitch =
+    1.05;
 
-  document
-    .getElementById("voiceStatus")
-    .innerText =
+  document.getElementById(
+    "voiceStatus"
+  ).innerText =
     "🔊 Voice: speaking...";
 
-  utter.onend = function(){
+  utterance.onend =
+    function(){
 
-    document
-      .getElementById("voiceStatus")
-      .innerText =
-      "🔊 Voice: ready";
+      document.getElementById(
+        "voiceStatus"
+      ).innerText =
+        "🔊 Voice: ready";
 
-  };
+    };
 
-  utter.onerror = function(){
-
-    document
-      .getElementById("voiceStatus")
-      .innerText =
-      "🔊 Voice: ready";
-
-  };
-
-  speechSynthesis.speak(utter);
+  speechSynthesis.speak(
+    utterance
+  );
 
 }
 
@@ -737,235 +634,135 @@ function novaSay(text){
 
   if(!text) return;
 
-  lastNovaMessage =
-    text;
-
   addMessage(
     text,
     "nova"
   );
 
-  if(autoVoice){
-
-    speak(text);
-
-  }
+  speak(text);
 
 }
 
 
 /* =====================================================
    SEND MESSAGE
+   IMPORTANT FIX
 ===================================================== */
 
 function sendMessage(){
 
   const text =
-    input.value.trim();
+    messageInput.value.trim();
 
-  if(!text) return;
+  if(text === ""){
+    return;
+  }
 
   addMessage(
     text,
     "user"
   );
 
-  input.value = "";
+  messageInput.value =
+    "";
+
+  typing.style.display =
+    "block";
 
   setTimeout(function(){
 
     const reply =
       novaReply(text);
 
+    typing.style.display =
+      "none";
+
     if(reply){
 
-      novaSay(reply);
+      novaSay(
+        reply
+      );
 
     }
 
-  },300);
+  },350);
 
 }
 
 
 /* =====================================================
-   ENTER
+   SEND BUTTON
 ===================================================== */
 
-input.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-
-      sendMessage();
-
-    }
-
-  }
-);
+document
+  .getElementById("sendBtn")
+  .addEventListener(
+    "click",
+    sendMessage
+  );
 
 
 /* =====================================================
-   VOICE INPUT
+   ENTER KEY
 ===================================================== */
 
-let recognition = null;
-
-function startVoice(){
-
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-  if(!SpeechRecognition){
-
-    novaSay(
-      "Tumhare current browser me voice recognition available nahi hai. Chrome browser me try karo."
-    );
-
-    return;
-
-  }
-
-  if(recognition){
-
-    try{
-
-      recognition.stop();
-
-    }catch(e){}
-
-  }
-
-  recognition =
-    new SpeechRecognition();
-
-  recognition.lang =
-    "hi-IN";
-
-  recognition.continuous =
-    false;
-
-  recognition.interimResults =
-    false;
-
-  recognition.maxAlternatives =
-    1;
-
-  document
-    .getElementById("voiceStatus")
-    .innerText =
-    "🎤 Voice: listening...";
-
-  recognition.onresult =
+messageInput
+  .addEventListener(
+    "keydown",
     function(event){
 
-      const text =
-        event.results[0][0].transcript;
+      if(
+        event.key === "Enter"
+      ){
 
-      input.value =
-        text;
+        event.preventDefault();
 
-      addMessage(
-        "🎤 " + text,
-        "user"
-      );
-
-      const reply =
-        novaReply(text);
-
-      if(reply){
-
-        novaSay(reply);
+        sendMessage();
 
       }
 
-    };
-
-  recognition.onerror =
-    function(){
-
-      document
-        .getElementById("voiceStatus")
-        .innerText =
-        "🔊 Voice: ready";
-
-      novaSay(
-        "Voice input me problem hui. Microphone permission check karo."
-      );
-
-    };
-
-  recognition.onend =
-    function(){
-
-      document
-        .getElementById("voiceStatus")
-        .innerText =
-        "🔊 Voice: ready";
-
-    };
-
-  try{
-
-    recognition.start();
-
-  }
-
-  catch(error){
-
-    console.log(error);
-
-  }
-
-}
+    }
+  );
 
 
 /* =====================================================
-   SPEAK LAST
-===================================================== */
-
-function speakLast(){
-
-  if(lastNovaMessage){
-
-    speak(
-      lastNovaMessage
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   MAIN NOVA REPLY
+   NOVA REPLY
 ===================================================== */
 
 function novaReply(text){
 
-  const original =
-    text.trim();
-
   const t =
-    original.toLowerCase();
+    text
+      .toLowerCase()
+      .trim();
+
+
+  /* NAME */
+
+  if(
+    t.includes("mera naam kya") ||
+    t.includes("my name") ||
+    t.includes("what is my name") ||
+    t.includes("naam yaad")
+  ){
+
+    return (
+      "Tumhara naam " +
+      userName +
+      " hai. 😊💙"
+    );
+
+  }
 
 
   /* SAVE NAME */
 
   const nameMatch =
-    original.match(
-      /(?:mera naam|my name is|i am|main)\s+(.+)/i
+    text.match(
+      /(?:mera naam|my name is)\s+(.+)/i
     );
 
-  if(
-    nameMatch &&
-    (
-      t.includes("mera naam") ||
-      t.includes("my name is")
-    )
-  ){
+  if(nameMatch){
 
     userName =
       nameMatch[1]
@@ -980,24 +777,8 @@ function novaReply(text){
     return(
       "Nice to meet you, " +
       userName +
-      "! 💙 Ab main tumhara naam yaad rakhungi."
-    );
-
-  }
-
-
-  /* ASK NAME */
-
-  if(
-    t.includes("mera naam kya") ||
-    t.includes("do you know my name") ||
-    t.includes("my name")
-  ){
-
-    return(
-      "Haan 😊 tumhara naam " +
-      userName +
-      " hai. Main ise yaad rakhti hoon."
+      "! 💙 " +
+      "Ab NOVA tumhara naam yaad rakhegi."
     );
 
   }
@@ -1007,16 +788,21 @@ function novaReply(text){
 
   if(
     t === "hi" ||
+    t === "hii" ||
+    t === "hiii" ||
     t === "hello" ||
     t === "hey" ||
+    t.includes("hi nova") ||
+    t.includes("hii nova") ||
     t.includes("hello nova") ||
-    t.includes("hi nova")
+    t.includes("hey nova")
   ){
 
     return(
       "Hello " +
       userName +
-      "! 👋💙 Main NOVA hoon. Batao aaj kya karna hai?"
+      "! 👋💙 " +
+      "Main NOVA hoon. Batao kya karna hai?"
     );
 
   }
@@ -1026,28 +812,15 @@ function novaReply(text){
 
   if(
     t.includes("kaise ho") ||
-    t.includes("how are you")
+    t.includes("how are you") ||
+    t.includes("kaisi ho")
   ){
 
     return(
-      "Main bilkul ready hoon! 🤖✨ " +
+      "Main bilkul theek hoon! 😄🤖 " +
       "Tum batao " +
       userName +
       ", tum kaisi ho?"
-    );
-
-  }
-
-
-  /* YOUR NAME */
-
-  if(
-    t.includes("tumhara naam") ||
-    t.includes("your name")
-  ){
-
-    return(
-      "Mera naam NOVA AI hai. 🤖💙"
     );
 
   }
@@ -1057,8 +830,7 @@ function novaReply(text){
 
   if(
     t.includes("battery") ||
-    t.includes("charge kitna") ||
-    t.includes("charging")
+    t.includes("charge")
   ){
 
     checkBattery();
@@ -1072,8 +844,8 @@ function novaReply(text){
 
   if(
     t.includes("camera") ||
-    t.includes("face detect") ||
-    t.includes("face")
+    t.includes("face") ||
+    t.includes("chehra")
   ){
 
     startCamera();
@@ -1104,37 +876,57 @@ function novaReply(text){
 
   if(
     t.includes("time") ||
-    t.includes("kitne baje")
-  ){
-
-    showDateTime();
-
-    return null;
-
-  }
-
-
-  /* DATE */
-
-  if(
+    t.includes("samay") ||
     t.includes("date") ||
-    t.includes("aaj ki date") ||
-    t.includes("aaj kya date")
+    t.includes("tarikh")
   ){
 
-    showDateTime();
+    showTime();
 
     return null;
 
   }
 
 
-  /* ABOUT USER */
+  /* SEARCH */
 
   if(
+    t.startsWith("search ") ||
+    t.startsWith("google ")
+  ){
+
+    const query =
+      text
+        .replace(/^search\s+/i,"")
+        .replace(/^google\s+/i,"")
+        .trim();
+
+    if(query){
+
+      window.open(
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(query),
+        "_blank"
+      );
+
+      return(
+        "Google par " +
+        query +
+        " search kar rahi hoon. 🔎"
+      );
+
+    }
+
+  }
+
+
+  /* ABOUT */
+
+  if(
+    t.includes("main kaisi") ||
     t.includes("main kaisi hu") ||
-    t.includes("main kaisi hoon") ||
-    t.includes("about me")
+    t.includes("about me") ||
+    t.includes("mere bare")
   ){
 
     aboutYou();
@@ -1144,20 +936,34 @@ function novaReply(text){
   }
 
 
-  /* MOTIVATION */
+  /* YOUR NAME */
 
   if(
-    t.includes("motivation") ||
-    t.includes("motivate") ||
-    t.includes("motivat")
+    t.includes("tumhara naam") ||
+    t.includes("your name") ||
+    t.includes("who are you")
   ){
 
     return(
-      "✨ " +
+      "Mera naam NOVA AI hai. 🤖💙 " +
+      "Main tumhari personal AI assistant hoon."
+    );
+
+  }
+
+
+  /* WHAT ARE YOU DOING */
+
+  if(
+    t.includes("kya kar rahi") ||
+    t.includes("kya kar") ||
+    t.includes("what are you doing")
+  ){
+
+    return(
+      "Abhi main tumse baat kar rahi hoon, " +
       userName +
-      ", slow progress bhi progress hoti hai. " +
-      "Khud par doubt mat karo. Tum jo seekh rahi ho, " +
-      "woh ek din bahut kaam aayega. 💙"
+      ". 🤖💙"
     );
 
   }
@@ -1168,28 +974,13 @@ function novaReply(text){
   if(
     t.includes("thank") ||
     t.includes("thanks") ||
-    t.includes("shukriya")
+    t.includes("dhanyavad")
   ){
 
     return(
-      "You're welcome " +
+      "You're welcome, " +
       userName +
-      "! 😊💙 Main yahin hoon."
-    );
-
-  }
-
-
-  /* LOVE */
-
-  if(
-    t.includes("love you") ||
-    t.includes("i love you")
-  ){
-
-    return(
-      "Aww 😄💙 NOVA tumhari AI assistant hai, " +
-      "aur tumhari help karna mujhe pasand hai!"
+      "! 😊💙"
     );
 
   }
@@ -1198,14 +989,35 @@ function novaReply(text){
   /* BYE */
 
   if(
-    t === "bye" ||
+    t.includes("bye") ||
     t.includes("goodbye")
   ){
 
     return(
       "Bye " +
       userName +
-      "! 👋🤖 Jab bhi bulaogi NOVA ready milegi."
+      "! 👋💙 " +
+      "Phir milte hain."
+    );
+
+  }
+
+
+  /* MOTIVATION */
+
+  if(
+    t.includes("motivat") ||
+    t.includes("motivation") ||
+    t.includes("udaas") ||
+    t.includes("sad")
+  ){
+
+    return(
+      "✨ " +
+      userName +
+      ", yaad rakho — " +
+      "slow progress bhi progress hoti hai. " +
+      "Give up mat karo! 💙"
     );
 
   }
@@ -1219,26 +1031,24 @@ function novaReply(text){
   ){
 
     return(
-      "Bilkul! 😊 Tum voice se bhi mujhe pooch sakti ho. " +
-      "Camera, battery, location, time, search, image aur files ke features bhi available hain."
+      "Bilkul! 😊 Tum mujhse naam, battery, " +
+      "time, location, camera, search aur bahut si " +
+      "basic cheezein karwa sakti ho. 🤖✨"
     );
 
   }
 
 
-  /* WHAT CAN YOU DO */
+  /* LOVE */
 
   if(
-    t.includes("kya kya kar") ||
-    t.includes("what can you do") ||
-    t.includes("features")
+    t.includes("love you") ||
+    t.includes("i love you")
   ){
 
     return(
-      "Main tumhari voice assistant hoon. 🤖✨ " +
-      "Main voice sun sakti hoon, voice me answer de sakti hoon, " +
-      "naam yaad rakh sakti hoon, battery check, camera, " +
-      "location, time/date, image/file upload aur web search open kar sakti hoon."
+      "Awww! 🤖💙 " +
+      "NOVA tumhari friendly AI assistant hai."
     );
 
   }
@@ -1250,9 +1060,8 @@ function novaReply(text){
     "Hmm 🤔 " +
     userName +
     ", ye interesting hai! " +
-    "Abhi meri basic offline intelligence active hai. " +
-    "Agar tum NOVA ko real ChatGPT-level answers dena chahti ho, " +
-    "to next step me AI API connect kar sakte hain. 🤖✨"
+    "Thoda aur detail mein batao, " +
+    "main tumhari help karne ki koshish karti hoon. 🤖✨"
   );
 
 }
@@ -1267,7 +1076,7 @@ async function checkBattery(){
   if(!navigator.getBattery){
 
     novaSay(
-      "Is browser me battery information available nahi hai."
+      "Is browser me battery percentage access available nahi hai."
     );
 
     return;
@@ -1279,30 +1088,56 @@ async function checkBattery(){
     const battery =
       await navigator.getBattery();
 
+    function updateBattery(){
+
+      const percentage =
+        Math.round(
+          battery.level * 100
+        );
+
+      const charging =
+        battery.charging
+        ? " ⚡ Charging"
+        : "";
+
+      document.getElementById(
+        "battery"
+      ).innerText =
+        "🔋 Battery: " +
+        percentage +
+        "%" +
+        charging;
+
+    }
+
+    updateBattery();
+
     const percentage =
       Math.round(
         battery.level * 100
       );
 
     const charging =
-      battery.charging;
-
-    document
-      .getElementById("battery")
-      .innerText =
-      "🔋 Battery: " +
-      percentage +
-      "%";
+      battery.charging
+      ? " aur abhi charging ho rahi hai"
+      : "";
 
     novaSay(
       "Tumhari battery " +
       percentage +
-      " percent hai." +
-      (
-        charging
-        ? " Aur phone abhi charging par hai. 🔌"
-        : ""
-      )
+      " percent hai" +
+      charging +
+      ". 🔋"
+    );
+
+    battery.addEventListener(
+      "levelchange",
+      updateBattery
+    );
+
+    battery.addEventListener(
+      "chargingchange",
+      updateBattery
     );
 
   }
@@ -1310,7 +1145,7 @@ async function checkBattery(){
   catch(error){
 
     novaSay(
-      "Battery information access nahi ho paayi."
+      "Battery percentage access nahi ho paaya."
     );
 
   }
@@ -1324,16 +1159,20 @@ async function checkBattery(){
 
 async function startCamera(){
 
-  const panel =
-    document.getElementById("cameraPanel");
+  const cameraBox =
+    document.getElementById(
+      "cameraBox"
+    );
 
-  panel.style.display =
+  cameraBox.style.display =
     "block";
 
   try{
 
-    if(!navigator.mediaDevices ||
-       !navigator.mediaDevices.getUserMedia){
+    if(
+      !navigator.mediaDevices ||
+      !navigator.mediaDevices.getUserMedia
+    ){
 
       throw new Error(
         "Camera unavailable"
@@ -1342,37 +1181,40 @@ async function startCamera(){
     }
 
     stream =
-      await navigator.mediaDevices.getUserMedia({
+      await navigator
+        .mediaDevices
+        .getUserMedia({
 
-        video:{
-          facingMode:"user"
-        },
+          video:{
+            facingMode:"user"
+          },
 
-        audio:false
+          audio:false
 
-      });
+        });
 
-    document
-      .getElementById("video")
-      .srcObject =
+    document.getElementById(
+      "video"
+    ).srcObject =
       stream;
 
-    document
-      .getElementById("faceResult")
-      .innerText =
-      "Camera ready. Ab Detect Face dabao.";
+    document.getElementById(
+      "faceResult"
+    ).innerText =
+      "Camera on hai. Ab Detect Face dabao.";
 
   }
 
   catch(error){
 
-    document
-      .getElementById("faceResult")
-      .innerText =
+    document.getElementById(
+      "faceResult"
+    ).innerText =
       "Camera permission allow karo.";
 
     novaSay(
-      "Camera permission allow karo. Browser settings me camera permission check kar sakti ho."
+      "Camera permission allow karo, " +
+      "phir NOVA camera use kar payegi."
     );
 
   }
@@ -1381,32 +1223,216 @@ async function startCamera(){
 
 
 /* =====================================================
-   FACE DETECTION
+   FACE
 ===================================================== */
 
 async function detectFace(){
 
   const video =
-    document.getElementById("video");
+    document.getElementById(
+      "video"
+    );
 
   if(!video.videoWidth){
 
     novaSay(
-      "Pehle camera ko start hone do."
+      "Pehle camera start hone do."
     );
 
     return;
 
   }
 
-  if("FaceDetector" in window){
+  if(
+    "FaceDetector" in window
+  ){
 
     try{
 
       const detector =
         new FaceDetector({
+
           fastMode:true,
+
           maxDetectedFaces:5
+
         });
 
-  
+      const faces =
+        await detector.detect(
+          video
+        );
+
+      if(faces.length){
+
+        document.getElementById(
+          "faceResult"
+        ).innerText =
+          faces.length +
+          " face detected. 🙂";
+
+        novaSay(
+          "Face detect ho gaya! 🙂"
+        );
+
+      }else{
+
+        document.getElementById(
+          "faceResult"
+        ).innerText =
+          "Face nahi mila.";
+
+        novaSay(
+          "Mujhe face clearly nahi mila. " +
+          "Camera ke saamne seedha dekho."
+        );
+
+      }
+
+    }
+
+    catch(error){
+
+      fallbackFace();
+
+    }
+
+  }
+
+  else{
+
+    fallbackFace();
+
+  }
+
+}
+
+
+function fallbackFace(){
+
+  document.getElementById(
+    "faceResult"
+  ).innerText =
+    "Is browser me built-in face detection available nahi hai.";
+
+  novaSay(
+    "Camera to chal raha hai, lekin is browser me " +
+    "built-in face detector available nahi hai."
+  );
+
+}
+
+
+/* =====================================================
+   CLOSE CAMERA
+===================================================== */
+
+function stopCamera(){
+
+  if(stream){
+
+    stream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
+      );
+
+  }
+
+  stream = null;
+
+  document.getElementById(
+    "video"
+  ).srcObject =
+    null;
+
+  document.getElementById(
+    "cameraBox"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   LOCATION
+===================================================== */
+
+function getLocation(){
+
+  if(!navigator.geolocation){
+
+    novaSay(
+      "Is browser me location support available nahi hai."
+    );
+
+    return;
+
+  }
+
+  document.getElementById(
+    "locationStatus"
+  ).innerText =
+    "📍 Location: checking...";
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+      const lat =
+        position.coords.latitude;
+
+      const lon =
+        position.coords.longitude;
+
+      document.getElementById(
+        "locationStatus"
+      ).innerText =
+        "📍 Location: on";
+
+      novaSay(
+        "Tumhari location mil gayi. 📍 " +
+        "Main exact address automatically guess nahi karungi, " +
+        "lekin map par location open kar sakti hoon."
+      );
+
+      const openMap =
+        confirm(
+          "Location Google Maps me open karein?"
+        );
+
+      if(openMap){
+
+        window.open(
+          "https://www.google.com/maps?q=" +
+          lat +
+          "," +
+          lon,
+          "_blank"
+        );
+
+      }
+
+    },
+
+    function(){
+
+      document.getElementById(
+        "locationStatus"
+      ).innerText =
+        "📍 Location: denied";
+
+      novaSay(
+        "Location permission allow nahi hui."
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   TIM
