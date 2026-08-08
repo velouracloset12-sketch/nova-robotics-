@@ -1,116 +1,245 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOVA Robotics</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA AI</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #050816;
-      color: white;
-      text-align: center;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    .container {
-      padding: 30px 20px;
-    }
+body{
+  font-family:Arial,sans-serif;
+  background:#050816;
+  color:white;
+  min-height:100vh;
+}
 
-    h1 {
-      color: #00bfff;
-      font-size: 42px;
-    }
+.app{
+  max-width:600px;
+  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(180deg,#061426,#02050d);
+}
 
-    .robot {
-      font-size: 80px;
-      margin: 20px;
-    }
+header{
+  padding:22px 18px;
+  text-align:center;
+  border-bottom:1px solid #18304d;
+}
 
-    .status {
-      color: #00ff88;
-      margin: 15px;
-    }
+header h1{
+  color:#00bfff;
+  font-size:34px;
+}
 
-    button {
-      background: #008cff;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-size: 18px;
-      margin: 8px;
-    }
+header p{
+  color:#9bb5cc;
+  margin-top:6px;
+}
 
-    #output {
-      margin-top: 25px;
-      padding: 20px;
-      background: #111a2e;
-      border-radius: 15px;
-      min-height: 50px;
-    }
-  </style>
+#chat{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.message{
+  padding:13px 16px;
+  margin:10px 0;
+  border-radius:16px;
+  max-width:85%;
+  line-height:1.5;
+}
+
+.nova{
+  background:#10243a;
+  border:1px solid #17476d;
+  margin-right:auto;
+}
+
+.user{
+  background:#006d9c;
+  margin-left:auto;
+}
+
+.inputArea{
+  display:flex;
+  gap:8px;
+  padding:15px;
+  border-top:1px solid #18304d;
+  background:#050b16;
+}
+
+input{
+  flex:1;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #24506e;
+  background:#0b1725;
+  color:white;
+  outline:none;
+}
+
+button{
+  padding:12px 16px;
+  border:none;
+  border-radius:12px;
+  background:#00aeea;
+  color:white;
+  font-weight:bold;
+}
+
+button:active{
+  transform:scale(.97);
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-  <h1>🤖 NOVA</h1>
+<header>
+  <h1>🤖 NOVA AI</h1>
+  <p>Your personal AI assistant</p>
+</header>
 
-  <div class="robot">🦾</div>
+<div id="chat">
 
-  <div class="status">● NOVA ONLINE</div>
-
-  <p>AI Powered Personal Robotics Assistant</p>
-
-  <button onclick="speakNOVA()">🔊 Talk to NOVA</button>
-
-  <button onclick="battery()">🔋 Battery</button>
-
-  <div id="output">
-    Hello! I am NOVA. Your personal AI robot.
+  <div class="message nova">
+    Hello! 👋 Main NOVA hoon.<br>
+    Tum mujhse kuch bhi pooch sakti ho.
   </div>
+
+</div>
+
+<div class="inputArea">
+  <input id="input" type="text" placeholder="Message NOVA..." onkeydown="enterKey(event)">
+  <button onclick="sendMessage()">Send</button>
+</div>
 
 </div>
 
 <script>
 
-function speakNOVA() {
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
 
-  const message =
-  "Hello! I am NOVA. I am your personal robotics assistant.";
+function addMessage(text,type){
 
-  document.getElementById("output").innerText = message;
+  const message = document.createElement("div");
 
-  const speech = new SpeechSynthesisUtterance(message);
+  message.className = "message " + type;
 
-  speech.lang = "en-US";
+  message.innerText = text;
 
-  window.speechSynthesis.speak(speech);
+  chat.appendChild(message);
+
+  chat.scrollTop = chat.scrollHeight;
 }
 
+function sendMessage(){
 
-async function battery() {
+  const text = input.value.trim();
 
-  if ("getBattery" in navigator) {
+  if(!text) return;
 
-    const b = await navigator.getBattery();
+  addMessage(text,"user");
 
-    document.getElementById("output").innerText =
-      "Battery: " + Math.round(b.level * 100) + "%";
+  input.value = "";
 
-  } else {
+  setTimeout(function(){
 
-    document.getElementById("output").innerText =
-      "Battery information is not supported by this browser.";
+    const reply = novaReply(text);
 
+    addMessage(reply,"nova");
+
+  },500);
+}
+
+function enterKey(event){
+
+  if(event.key === "Enter"){
+    sendMessage();
   }
+
+}
+
+function novaReply(text){
+
+  const t = text.toLowerCase();
+
+  if(
+    t.includes("hello") ||
+    t.includes("hi") ||
+    t.includes("hey") ||
+    t.includes("helo")
+  ){
+    return "Hello! 👋 Main NOVA hoon. Tum kaisi ho?";
+  }
+
+  if(
+    t.includes("tumhara naam") ||
+    t.includes("your name") ||
+    t.includes("naam kya")
+  ){
+    return "Mera naam NOVA AI hai. 🤖✨";
+  }
+
+  if(
+    t.includes("kaise ho") ||
+    t.includes("how are you")
+  ){
+    return "Main bilkul theek hoon! 😄 Tum batao, tum kaisi ho?";
+  }
+
+  if(
+    t.includes("kya kar") ||
+    t.includes("what are you doing")
+  ){
+    return "Abhi main tumse baat kar raha hoon. 🤖💙";
+  }
+
+  if(
+    t.includes("thank") ||
+    t.includes("thanks")
+  ){
+    return "You're welcome! 😊 Jab bhi zarurat ho, NOVA yahin hai.";
+  }
+
+  if(
+    t.includes("bye") ||
+    t.includes("goodbye")
+  ){
+    return "Bye! 👋 Phir milte hain. NOVA online rahega. 🤖";
+  }
+
+  if(
+    t.includes("motivat") ||
+    t.includes("motivation")
+  ){
+    return "✨ Yaad rakho: slow progress bhi progress hoti hai. Give up mat karo!";
+  }
+
+  if(
+    t.includes("help") ||
+    t.includes("madad")
+  ){
+    return "Bilkul! 😊 Apna question mujhe batao, main help karne ki koshish karunga.";
+  }
+
+  return "Hmm 🤔 Ye interesting hai! Thoda aur detail mein batao, main NOVA tumhari help karta hoon. 🤖✨";
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
